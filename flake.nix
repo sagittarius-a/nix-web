@@ -23,11 +23,19 @@
           };
 
           packages = import ./packages.nix { inherit pkgs; };
+
+          fontsConf = pkgs.makeFontsConf {
+            fontDirectories = [
+              pkgs.dejavu_fonts
+            ];
+          };
         in
         {
           default = pkgs.mkShell {
             name = "nix-web";
             packages = packages.common;
+
+            FONTCONFIG_FILE = "${fontsConf}";
           };
 
           full = pkgs.mkShell {
@@ -36,6 +44,8 @@
 
             SECLISTS = "${pkgs.seclists}/share/seclists";
             PAYLOADS = "${pkgs.payloadsallthethings}/share/payloadsallthethings";
+
+            FONTCONFIG_FILE = "${fontsConf}";
           };
         }
       );
