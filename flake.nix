@@ -42,7 +42,7 @@
             name = "nix-web-full";
             packages = packages.common ++ packages.full;
 
-            SECLISTS = "${pkgs.seclists}/share/seclists";
+            SECLISTS = "${pkgs.seclists}/share/wordlists/seclists";
             PAYLOADS = "${pkgs.payloadsallthethings}/share/payloadsallthethings";
 
             FONTCONFIG_FILE = "${fontsConf}";
