@@ -1,10 +1,10 @@
-
 {
   description = "CTF Web environment";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-  outputs = { nixpkgs, ... }:
+  outputs =
+    { nixpkgs, ... }:
     let
       systems = [
         "x86_64-linux"
@@ -14,12 +14,12 @@
       forAllSystems = nixpkgs.lib.genAttrs systems;
     in
     {
-      devShells = forAllSystems (system:
+      devShells = forAllSystems (
+        system:
         let
           pkgs = import nixpkgs {
             inherit system;
-            config.allowUnfreePredicate = pkg:
-              nixpkgs.lib.getName pkg == "burpsuite";
+            config.allowUnfreePredicate = pkg: nixpkgs.lib.getName pkg == "burpsuite";
           };
 
           packages = import ./packages.nix { inherit pkgs; };
@@ -50,7 +50,8 @@
         }
       );
 
-      homeModules.default = { pkgs, ... }:
+      homeModules.default =
+        { pkgs, ... }:
         let
           packages = import ./packages.nix { inherit pkgs; };
         in
